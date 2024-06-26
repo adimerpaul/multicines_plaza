@@ -20,9 +20,15 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        // bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        //   backgroundColor: Colors.red,
+        //   selectedItemColor: Colors.amber,
+        //   unselectedItemColor: Colors.white,
+        //   selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+        //   unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
+        // ),
       ),
       home: const MenuScreen(),
     );
   }
 }
-
