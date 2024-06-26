@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
-// kBackgroundColor que se una color blanco sueave
-const colorActive = Color(0xFF9C27B0);
-const colorInactive = Color(0xFFB7B7B7);
+const bgColor = Color(0xFF171722);
+const bgSecondaryColor = Color(0xFF1E1E2A);
+const colorActive = Color(0xFF880E4F);
+const colorInactive = Color(0xFF4A4B56);

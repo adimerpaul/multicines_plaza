@@ -39,10 +39,11 @@ class _MenuScreenState extends State<MenuScreen> {
               });
             },
             child: Icon(
-              Icons.shopping_cart,
-              color: index_color == 4 ? Colors.white : colorInactive,
+              index_color == 4 ? Icons.shopping_cart : Icons.shopping_cart_outlined,
+              color: index_color == 4 ? colorActive : colorInactive,
+              size: index_color == 4 ? 22 : 20,
             ),
-            backgroundColor: Colors.purple,
+            backgroundColor: bgColor,
             shape: const CircleBorder(),
             elevation: 2.0,
           ),
@@ -50,6 +51,7 @@ class _MenuScreenState extends State<MenuScreen> {
       ),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
+        color: bgColor,
         height: 65,
         child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,6 +67,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   Icon(
                     index_color == 0 ? Icons.home : Icons.home_outlined,
                     color: index_color == 0 ? colorActive : colorInactive,
+                    size: index_color == 0 ? 22 : 20,
                   ),
                   Text(
                     'Inicio',
@@ -87,6 +90,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   Icon(
                     index_color == 1 ? Icons.movie : Icons.movie_outlined,
                     color: index_color == 1 ? colorActive : colorInactive,
+                    size: index_color == 1 ? 22 : 20,
                   ),
                   Text(
                     'Peliculas',
@@ -112,6 +116,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   Icon(
                     index_color == 2 ? Icons.person : Icons.person_outline,
                     color: index_color == 2 ? colorActive : colorInactive,
+                    size: index_color == 2 ? 22 : 20,
                   ),
                   Text(
                     'Perfil',
@@ -134,6 +139,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   Icon(
                     index_color == 3 ? Icons.local_offer : Icons.local_offer_outlined,
                     color: index_color == 3 ? colorActive : colorInactive,
+                    size: index_color == 3 ? 22 : 20,
                   ),
                   Text(
                     'Promos',
