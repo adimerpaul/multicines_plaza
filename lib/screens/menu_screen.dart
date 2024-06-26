@@ -27,30 +27,30 @@ class _MenuScreenState extends State<MenuScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: pages[index_color],
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-        height: 60,
-        width: 60,
-        child: FittedBox(
-          child: FloatingActionButton(
-            onPressed: () {
-              setState(() {
-                index_color = 4;
-              });
-            },
-            child: Icon(
-              index_color == 4 ? Icons.shopping_cart : Icons.shopping_cart_outlined,
-              color: index_color == 4 ? colorActive : colorInactive,
-              size: index_color == 4 ? 22 : 20,
-            ),
-            backgroundColor: bgColor,
-            shape: const CircleBorder(),
-            elevation: 2.0,
-          ),
-        ),
-      ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // floatingActionButton: Container(
+      //   height: 60,
+      //   width: 60,
+      //   child: FittedBox(
+      //     child: FloatingActionButton(
+      //       onPressed: () {
+      //         setState(() {
+      //           index_color = 4;
+      //         });
+      //       },
+      //       child: Icon(
+      //         index_color == 4 ? Icons.shopping_cart : Icons.shopping_cart_outlined,
+      //         color: index_color == 4 ? colorActive : colorInactive,
+      //         size: index_color == 4 ? 22 : 20,
+      //       ),
+      //       backgroundColor: bgColor,
+      //       shape: const CircleBorder(),
+      //       elevation: 2.0,
+      //     ),
+      //   ),
+      // ),
       bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
+        // shape: const CircularNotchedRectangle(),
         color: bgColor,
         height: 65,
         child: Row(
@@ -102,9 +102,9 @@ class _MenuScreenState extends State<MenuScreen> {
                 ],
               ),
             ),
-            const SizedBox(
-              width: 0,
-            ),
+            // const SizedBox(
+            //   width: 0,
+            // ),
             GestureDetector(
               onTap: () {
                 setState(() {
@@ -145,6 +145,29 @@ class _MenuScreenState extends State<MenuScreen> {
                     'Promos',
                     style: TextStyle(
                       color: index_color == 3 ? colorActive : colorInactive,
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  index_color = 4;
+                });
+              },
+              child: Column(
+                children: [
+                  Icon(
+                    index_color == 4 ? Icons.history : Icons.history_outlined,
+                    color: index_color == 4 ? colorActive : colorInactive,
+                    size: index_color == 4 ? 22 : 20,
+                  ),
+                  Text(
+                    'Historial',
+                    style: TextStyle(
+                      color: index_color == 4 ? colorActive : colorInactive,
                       fontSize: 12,
                     ),
                   ),
