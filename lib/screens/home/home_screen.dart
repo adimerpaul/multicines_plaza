@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:multicines_plaza/services/api_service.dart';
 import 'package:multicines_plaza/utils/colors.dart';
 import 'package:multicines_plaza/widgets/category_section.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,6 +19,23 @@ class _HomeScreenState extends State<HomeScreen> {
     'https://via.placeholder.com/600x400?text=Movie+2',
     'https://via.placeholder.com/600x400?text=Movie+3',
   ];
+  @override
+  late Future<List<dynamic>> movies;
+
+  @override
+  void initState() {
+    super.initState();
+    init();
+  }
+  Future init() async {
+    List res = await ApiService().moviesGet();
+    final url = dotenv.env['API_BACK']?? '';
+    imgList.clear();
+    res.forEach((element) {
+      final urlImg = url + '/../../imagen/'+ element['imagen'];
+      imgList.add(urlImg);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
