@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:multicines_plaza/models/movie.dart';
+import 'package:multicines_plaza/screens/history/header_screen.dart';
 import 'package:multicines_plaza/services/api_service.dart';
 import 'package:multicines_plaza/utils/colors.dart';
 import 'package:multicines_plaza/widgets/category_section.dart';
@@ -19,8 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
     'https://via.placeholder.com/600x400?text=Movie+2',
     'https://via.placeholder.com/600x400?text=Movie+3',
   ];
-  @override
-  late Future<List<dynamic>> movies;
+  final List<Movie> movies = [];
 
   @override
   void initState() {
@@ -30,11 +31,15 @@ class _HomeScreenState extends State<HomeScreen> {
   Future init() async {
     List res = await ApiService().moviesGet();
     final url = dotenv.env['API_BACK']?? '';
+    // print(res);
     imgList.clear();
     res.forEach((element) {
       final urlImg = url + '/../../imagen/'+ element['imagen'];
+      element['imagen'] = urlImg;
       imgList.add(urlImg);
+      movies.add(Movie.fromJson(element));
     });
+    setState(() {});
   }
 
   @override
@@ -42,48 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(100.0), // Altura del AppBar
-        child: AppBar(
-          flexibleSpace: Stack(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage('https://www.shutterstock.com/image-vector/elegant-purple-stage-horizontal-glowing-600nw-2345772453.jpg'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Container(
-                color: Colors.black.withOpacity(0.5), // Fondo con opacidad para mejor visibilidad del texto
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Multicines Plaza',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      'Bienvenido a tu cine favorito',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          backgroundColor: Colors.transparent, // Fondo transparente para ver la imagen
+        child: HeaderScreen(
+          title: 'Multicines Plaza',
+          subtitle: '¡Disfruta de las mejores películas!',
         ),
       ),
       body: Container(
@@ -98,9 +64,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   autoPlay: true,
                   enlargeCenterPage: true,
                 ),
-                items: imgList.map((item) => Container(
+                items: movies.map((movie) => Container(
                   child: Center(
-                    child: Image.network(item, fit: BoxFit.cover, width: 1000),
+                    child: Image.network(movie.imagen, fit: BoxFit.cover, width: 1000),
                   ),
                 )).toList(),
               ),
