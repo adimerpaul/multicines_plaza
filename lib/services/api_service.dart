@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 class ApiService{
   final String _baseUrl = dotenv.env['API_BACK']?? '';
   Future moviesGet() async {
-    final response = await http.get(Uri.parse('$_baseUrl/movies'));
+    final response = await http.get(Uri.parse('$_baseUrl/peliculas'));
     if (response.statusCode == 200) {
       final List<dynamic> data = jsonDecode(response.body);
       return data;

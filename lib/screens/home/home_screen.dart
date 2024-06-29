@@ -36,8 +36,8 @@ class _HomeScreenState extends State<HomeScreen> {
     // print(res);
     imgList.clear();
     res.forEach((element) {
-      final urlImg = url + '/../../imagen/'+ element['imagen'];
-      element['imagen'] = urlImg;
+      final urlImg = 'https://image.tmdb.org/t/p/w500/${element['backdrop_path']}';
+      element['backdrop_path'] = urlImg;
       imgList.add(urlImg);
       movies.add(Movie.fromJson(element));
     });
@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           Container(
                             child: Center(
-                              child: Image.network(movie.imagen, fit: BoxFit.cover, width: 1000),
+                              child: Image.network(movie.backdrop_path!, fit: BoxFit.cover, width: 1000),
                             ),
                           ),
                           // Positioned(
@@ -101,17 +101,40 @@ class _HomeScreenState extends State<HomeScreen> {
                             bottom: 8.0,
                             left: 8.0,
                             child: Container(
-                              color: Colors.black54,
+                              color: Colors.black26,
                               padding: const EdgeInsets.all(4.0),
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                      capitalize(movie.nombre),
+                                      capitalize(movie.original_title!),
                                       style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 14,
+                                          fontSize: 15,
                                           fontWeight: FontWeight.bold
                                       )
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Icon(Icons.local_movies, color: Colors.white, size: 12),
+                                      Text(
+                                        movie.id.toString(),
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8.0),
+                                      Icon(Icons.access_time, color: Colors.white, size: 12),
+                                      Text(
+                                        movie.id.toString()+ ' min',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
