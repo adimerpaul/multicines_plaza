@@ -6,6 +6,7 @@ import 'package:multicines_plaza/screens/history/header_screen.dart';
 import 'package:multicines_plaza/services/api_service.dart';
 import 'package:multicines_plaza/utils/colors.dart';
 import 'package:multicines_plaza/widgets/category_section.dart';
+import 'package:multicines_plaza/widgets/movie_detail_screen.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -58,18 +59,64 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CarouselSlider(
-                options: CarouselOptions(
-                  height: 200.0,
-                  autoPlay: true,
-                  enlargeCenterPage: true,
-                ),
-                items: movies.map((movie) => Container(
-                  child: Center(
-                    child: Image.network(movie.imagen, fit: BoxFit.cover, width: 1000),
+              if (movies.isNotEmpty)
+                CarouselSlider(
+                  options: CarouselOptions(
+                    height: 200.0,
+                    autoPlay: true,
+                    enlargeCenterPage: true,
                   ),
-                )).toList(),
-              ),
+                  items: movies.map((movie) {
+                    return GestureDetector(
+                      onTap: () {
+                        // Navegar a la pantalla de detalles de la película
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MovieDetailScreen(movie: movie),
+                          ),
+                        );
+                      },
+                      child: Stack(
+                        children: [
+                          Container(
+                            child: Center(
+                              child: Image.network(movie.imagen, fit: BoxFit.cover, width: 1000),
+                            ),
+                          ),
+                          // Positioned(
+                          //   top: 8.0,
+                          //   right: 8.0,
+                          //   child: Container(
+                          //     color: Colors.black54,
+                          //     padding: const EdgeInsets.all(4.0),
+                          //     child: Text(
+                          //       'Disponible: ${movie.disponible}',
+                          //       style: TextStyle(color: Colors.white),
+                          //     ),
+                          //   ),
+                          // ),
+                          Positioned(
+                            bottom: 8.0,
+                            left: 8.0,
+                            child: Container(
+                              color: Colors.black54,
+                              padding: const EdgeInsets.all(4.0),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    '${movie.nombre}',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }).toList(),
+                ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
