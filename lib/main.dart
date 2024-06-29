@@ -21,7 +21,8 @@ class _MyAppState extends State<MyApp> {
       title: 'Multicines Plaza',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        fontFamily: 'Acme',
+        primarySwatch: Colors.purple,
       ),
       home: const MenuScreen(),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:multicines_plaza/addons/text.dart';
 import 'package:multicines_plaza/models/movie.dart';
 import 'package:multicines_plaza/screens/history/header_screen.dart';
 import 'package:multicines_plaza/services/api_service.dart';
@@ -105,8 +106,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Column(
                                 children: [
                                   Text(
-                                    '${movie.nombre}',
-                                    style: TextStyle(color: Colors.white),
+                                      capitalize(movie.nombre),
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold
+                                      )
                                   ),
                                 ],
                               ),
