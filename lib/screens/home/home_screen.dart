@@ -33,12 +33,29 @@ class _HomeScreenState extends State<HomeScreen> {
   Future init() async {
     List res = await ApiService().moviesGet();
     final url = dotenv.env['API_BACK']?? '';
-    // print(res);
+
     imgList.clear();
     res.forEach((element) {
-      final urlImg = 'https://image.tmdb.org/t/p/w500/${element['backdrop_path']}';
-      element['backdrop_path'] = urlImg;
-      imgList.add(urlImg);
+      // backdrop_path si contiene http
+      print(element['backdrop_path']);
+      if (element['backdrop_path'].toString().contains('http')) {
+        element['backdrop_path'] = element['backdrop_path'].toString();
+      }else{
+        final urlImg = 'https://image.tmdb.org/t/p/w500/${element['backdrop_path']}';
+        element['backdrop_path'] = urlImg;
+      }
+
+      var origin_country = element['origin_country'];
+      List<String> origin_country_list = [];
+      for (var i = 0; i < origin_country.length; i++) {
+        print(origin_country[i]);
+        // origin_country[i] = origin_country[i].toString();
+        origin_country_list.add(origin_country[i].toString());
+      }
+      print(origin_country_list);
+      element['belongs_to_collection'] =element['belongs_to_collection'].toString();
+      element['origin_country'] = origin_country_list;
+      // imgList.add(urlImg);
       movies.add(Movie.fromJson(element));
     });
     setState(() {});
@@ -82,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           Container(
                             child: Center(
-                              child: Image.network(movie.backdrop_path!, fit: BoxFit.cover, width: 1000),
+                              child: Image.network(movie.backdrop_path!, fit: BoxFit.cover,height: 200.0, width: double.infinity,)
                             ),
                           ),
                           // Positioned(
@@ -107,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                      capitalize(movie.original_title!),
+                                      capitalize(movie.title!),
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 15,
