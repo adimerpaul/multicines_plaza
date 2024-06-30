@@ -160,10 +160,26 @@ class _HomeScreenState extends State<HomeScreen> {
               CategorySection(
                 title: 'Películas en Cartelera',
                 items: movies,
+                onClick: (movie) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MovieDetailScreen(movie: movie),
+                    ),
+                  );
+                },
               ),
               CategorySection(
                 title: 'Próximos Estrenos',
                 items: proximos,
+                onClick: (movie) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MovieDetailScreen(movie: movie),
+                    ),
+                  );
+                },
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
