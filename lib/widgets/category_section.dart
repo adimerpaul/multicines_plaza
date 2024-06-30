@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:multicines_plaza/models/movie.dart';
 
 class CategorySection extends StatelessWidget {
   final String title;
-  final List<String> items;
+  final List<Movie> items;
 
   const CategorySection({required this.title, required this.items});
 
@@ -32,7 +33,7 @@ class CategorySection extends StatelessWidget {
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Image.network(items[index]),
+                  child: Image.network(items[index].poster_path!),
                 );
               },
             ),

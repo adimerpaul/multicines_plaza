@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     'https://via.placeholder.com/600x400?text=Movie+3',
   ];
   final List<Movie> movies = [];
+  final List<Movie> proximos = [];
 
   @override
   void initState() {
@@ -31,32 +32,15 @@ class _HomeScreenState extends State<HomeScreen> {
     init();
   }
   Future init() async {
-    List res = await ApiService().moviesGet();
+    List<Movie> moviesRes = await ApiService().peliculas();
+    movies.addAll(moviesRes);
     final url = dotenv.env['API_BACK']?? '';
 
-    imgList.clear();
-    res.forEach((element) {
-      // backdrop_path si contiene http
-      print(element['backdrop_path']);
-      if (element['backdrop_path'].toString().contains('http')) {
-        element['backdrop_path'] = element['backdrop_path'].toString();
-      }else{
-        final urlImg = 'https://image.tmdb.org/t/p/w500/${element['backdrop_path']}';
-        element['backdrop_path'] = urlImg;
-      }
 
-      var origin_country = element['origin_country'];
-      List<String> origin_country_list = [];
-      for (var i = 0; i < origin_country.length; i++) {
-        print(origin_country[i]);
-        // origin_country[i] = origin_country[i].toString();
-        origin_country_list.add(origin_country[i].toString());
-      }
-      print(origin_country_list);
-      element['belongs_to_collection'] =element['belongs_to_collection'].toString();
-      element['origin_country'] = origin_country_list;
-      // imgList.add(urlImg);
-      movies.add(Movie.fromJson(element));
+    List<Movie> proximosRes = await ApiService().proximos();
+    proximos.addAll(proximosRes);
+    proximosRes.forEach((movie) {
+      print(movie.backdrop_path);
     });
     setState(() {});
   }
@@ -124,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                      capitalize(movie.title!),
+                                      capitalize(movie.original_title!),
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 15,
@@ -175,19 +159,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               CategorySection(
                 title: 'Películas en Cartelera',
-                items: [
-                  'https://via.placeholder.com/150x200?text=Movie+1',
-                  'https://via.placeholder.com/150x200?text=Movie+2',
-                  'https://via.placeholder.com/150x200?text=Movie+3',
-                ],
+                items: movies,
               ),
               CategorySection(
                 title: 'Próximos Estrenos',
-                items: [
-                  'https://via.placeholder.com/150x200?text=Coming+Soon+1',
-                  'https://via.placeholder.com/150x200?text=Coming+Soon+2',
-                  'https://via.placeholder.com/150x200?text=Coming+Soon+3',
-                ],
+                items: proximos,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
