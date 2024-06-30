@@ -3,7 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:multicines_plaza/addons/text.dart';
 import 'package:multicines_plaza/models/movie.dart';
-import 'package:multicines_plaza/screens/history/header_screen.dart';
+import 'package:multicines_plaza/widgets/header_screen.dart';
 import 'package:multicines_plaza/services/api_service.dart';
 import 'package:multicines_plaza/utils/colors.dart';
 import 'package:multicines_plaza/widgets/category_section.dart';
